@@ -1,13 +1,12 @@
+from datetime import timedelta
 import logging
+import json
 import urllib
 import requests
 import base64
 
 import voluptuous as vol
-from datetime import timedelta
 
-
-from homeassistant.helpers.discovery import load_platform
 import homeassistant.helpers.config_validation as cv
 from homeassistant.const import CONF_USERNAME, CONF_PASSWORD, CONF_HOST
 from homeassistant.helpers.entity import Entity
@@ -163,31 +162,6 @@ class AerogardenAPI():
             gardenmac = garden["airGuid"] + '-' + ('' if id is None else str(id))
             data[gardenmac] = garden
 
-        _LOGGER.debug('Updating data {}'.format(data))
+        _LOGGER.debug('Updating data {}'.format(json.dumps(data)))
         self._data = data
         return True
-       
-
-def setup(hass, config):
-    """ Setup the aerogarden platform """
-
-    username = config[DOMAIN].get(CONF_USERNAME)
-    password = config[DOMAIN].get(CONF_PASSWORD)
-    host = config[DOMAIN].get(CONF_HOST)
-
-    ag = AerogardenAPI(username, password, host)
-    if not ag.is_valid_login():
-         _LOGGER.error("Invalid login: %s" % (ag.error))
-         return
-
-    ag.update()
-
-    # store the aerogarden API object into hass data system
-    hass.data[DATA_AEROGARDEN] = ag
-
-    load_platform(hass, 'sensor', DOMAIN, {}, config)
-    load_platform(hass, 'binary_sensor', DOMAIN, {}, config)
-    load_platform(hass, 'light', DOMAIN, {}, config)
-
-    return True
-

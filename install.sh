@@ -5,7 +5,10 @@ set -o pipefail
 
 HOME_ASSISTANT_CUSTOM_COMPONENTS="$1"
 
-cp custom_components/aerogarden.py $HOME_ASSISTANT_CUSTOM_COMPONENTS/.
-cp custom_components/binary_sensor/aerogarden.py $HOME_ASSISTANT_CUSTOM_COMPONENTS/binary_sensor/.
-cp custom_components/light/aerogarden.py $HOME_ASSISTANT_CUSTOM_COMPONENTS/light/.
-cp custom_components/sensor/aerogarden.py $HOME_ASSISTANT_CUSTOM_COMPONENTS/sensor/.
+rm $HOME_ASSISTANT_CUSTOM_COMPONENTS/aerogarden.py
+rm $HOME_ASSISTANT_CUSTOM_COMPONENTS/binary_sensor/aerogarden.py
+rm $HOME_ASSISTANT_CUSTOM_COMPONENTS/sensor/aerogarden.py
+rm $HOME_ASSISTANT_CUSTOM_COMPONENTS/light/aerogarden.py
+
+rm -r $HOME_ASSISTANT_CUSTOM_COMPONENTS/aerogarden
+cp -r custom_components/aerogarden $HOME_ASSISTANT_CUSTOM_COMPONENTS/aerogarden

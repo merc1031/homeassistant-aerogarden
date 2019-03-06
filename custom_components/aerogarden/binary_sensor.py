@@ -3,7 +3,7 @@ import logging
 
 from homeassistant.components.binary_sensor import BinarySensorDevice
 
-from .. import aerogarden
+from . import aerogarden
 
 _LOGGER = logging.getLogger(__name__)
 
