@@ -35,7 +35,7 @@ class AerogardenAPI():
     def __init__(self, username, password, host=None):
         self._username = urllib.parse.quote(username)
         self._password = urllib.parse.quote(password)
-        self._host = host
+        self._host = host or DEFAULT_HOST
         self._userid = None
         self._error_msg = None
         self._data = None
